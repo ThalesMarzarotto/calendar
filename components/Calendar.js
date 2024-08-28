@@ -8,6 +8,11 @@ export default function Calendar() {
 
 const [state, setState] = useState([])
     
+let curMonth = 12 
+let curYear =  2024
+
+
+
 
 return (
     <>
