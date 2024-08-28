@@ -1,0 +1,20 @@
+
+
+.calendarWrapper{
+    display: flex;
+    flex-direction: column;
+}
+
+.controler{
+    display: flex;
+}
+
+.monthWrapper{
+    display: flex; 
+    flex-direction: column;
+}
+
+.weekWrapper{
+    display: flex;
+    flex-direction: row;
+}
