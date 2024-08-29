@@ -3,13 +3,22 @@
 .calendarWrapper{
     display: flex;
     flex-direction: column;
+    border: 1px solid white;
+    padding: 5px;
 }
 
 .controler{
     display: flex;
+    justify-content: space-between;
 }
 
+.currentMonth{
+    display: flex;
+}
+
+
 .monthWrapper{
+    margin-top: 5px;
     display: flex; 
     flex-direction: column;
 }
@@ -17,4 +26,9 @@
 .weekWrapper{
     display: flex;
     flex-direction: row;
+}
+
+.day {
+    width: 35px;
+    user-select: none;
 }

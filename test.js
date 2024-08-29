@@ -20,45 +20,64 @@ let months = {
 }
 
 
+
+
+
+function getCalendar(tgtMonth, tgtYear ) {
+
+
+    
 let arr = new Array(42).fill(0)
 
-
-
-
-
-
 let prev_dte = new Date()
-let cur_dte = new Date()
 let next_dte = new Date()
 
 
 
 
-let tgtMonth = 5 
-let tgtYear = 2024 
-
 prev_dte.setMonth(tgtMonth)
-prev_dte.setDate(-1)
+prev_dte.setDate(0)
 next_dte.setMonth(tgtMonth+1)
 next_dte.setDate(0)
-console.log(next_dte.getDate(), 'next');
 
 
-console.log(prev_dte.getDate(), prev_dte.getMonth(), prev_dte.getFullYear(), prev_dte.getDay());
 
+
+let p_day = prev_dte.getDay()
 let p_date = prev_dte.getDate()
-for (let i = prev_dte.getDay(); i >-1; i--) {
-   arr[i] = {day: i, date: p_date }
+
+
+for (let i = p_day; i >-1; i--) {
+    arr[i] = {day: i, date: p_date }
     p_date-=1   
+}  
+
+
+if (p_day==6){
+  p_day = 0 
+  
+} else {
+    p_day+=1
 }
 
+
 let c_date = 1
-for (let j = 0; j < next_dte.getDate(); j++) {
-    
-    arr[(j+prev_dte.getDay()+1)] = {day: j%7, date: c_date }
+for (let j = 0; j < next_dte.getDate(); j++) {    
+        
+    arr[(j+p_day)] = {day: (j+p_day)%7, date: c_date }
     c_date+=1
     
 }
 
+let n_date = 1
+for (let k = p_day+c_date-1; k < arr.length; k++) {
+    arr[k] = {day: k%7, date: n_date}
+    n_date+=1
+}
 
-console.log(arr)
+
+return (arr)
+}
+
+
+
