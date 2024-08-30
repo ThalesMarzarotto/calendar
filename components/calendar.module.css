@@ -1,4 +1,6 @@
+.main {
 
+}
 
 .calendarWrapper{
     display: flex;
@@ -17,6 +19,17 @@
 }
 
 
+.scheduleWrapper {
+    display: flex;
+    border: 1px solid red;
+    flex-direction:column;
+}
+.scheduleDate {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .monthWrapper{
     margin-top: 5px;
     display: flex; 
@@ -31,4 +44,15 @@
 .day {
     width: 35px;
     user-select: none;
+}
+
+.avaib {
+    display:flex;
+    flex-direction:column;
+    text-align: center;
+    padding: 4px;
+}
+
+.notAvaib{
+    background-color: red;
 }

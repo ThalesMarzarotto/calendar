@@ -4,7 +4,13 @@ import styles from './calendar.module.css'
 import { useState } from "react";
 
 
+let availableDates = new Map ()
 
+
+availableDates.set("4/8/2024", [{hour: "13:00", abl: true},{hour: "14:00", abl: false}])
+
+
+let dte = ""
 let tgtMonth = new Date()
 let tgtYear = new Date()
 
@@ -24,9 +30,10 @@ let months = {
     10: "Nov", 
     11: "Dez", 
 }
-const [Month, setMonth] = useState(tgtMonth.getMonth())
-const [Year, setYear] = useState(tgtYear.getFullYear())
-const [Calendar, setCalendar] = useState([])
+
+const [Calendar, setCalendar] = useState([]) 
+const [Schedule, setSchedule] = useState([]) 
+const [date, setdate] = useState([]) 
 
 
 function getCalendar(tgtMonth, tgtYear ) {
@@ -93,7 +100,6 @@ function changeMonth(direction){
             if(tgtMonth.getMonth() ===11) {
                 tgtMonth.setMonth(0)
                 tgtYear.setFullYear(tgtYear.getFullYear()+1)    
-                setYear(tgtYear.getFullYear())
             }else {
                tgtMonth.setMonth(tgtMonth.getMonth()+1)
             }
@@ -102,7 +108,6 @@ function changeMonth(direction){
         if(tgtMonth.getMonth() ===0) {
             tgtMonth.setMonth(11)
             tgtYear.setFullYear(tgtYear.getFullYear()-1)     
-            setYear(tgtYear.getFullYear())
 
             
         }else {
@@ -110,7 +115,7 @@ function changeMonth(direction){
         }
     }
     
-    setMonth(tgtMonth.getMonth())
+    displayCalendar(tgtMonth.getMonth(), tgtYear.getFullYear())
 
 
 }
@@ -123,9 +128,43 @@ function changeYear(direction){
     }else {
         tgtYear.setFullYear(tgtYear.getFullYear()-1)        
     }
-    setYear(tgtYear.getFullYear())
+    displayCalendar(tgtMonth.getMonth(), tgtYear.getFullYear())
+
 }
 
+
+function displaySchedule(obj) {
+
+
+  
+
+  dte = obj.date + "/" + obj.month + "/" + obj.year
+
+  let dsp_schedule = [ ]
+    if(availableDates.has(dte)){
+      let schedule = availableDates.get(dte)
+      for (let i = 0; i < schedule.length; i++) {
+        if( schedule[i].abl ){
+          dsp_schedule.push(
+          <div className={styles.avaib}>
+            {schedule[i].hour}
+          </div>
+        )
+        } else {
+          dsp_schedule.push(
+            <div className={styles.notAvaib}>
+              {schedule[i].hour}
+            </div>
+          )
+        }
+        
+        
+      }
+      
+    } 
+  setdate(dte)
+ setSchedule([...dsp_schedule])
+}
 
 
 function displayCalendar(tgtMonth, tgtYear) {
@@ -142,7 +181,7 @@ for (let i = 0; i <6 ; i++) {
     let days = [ ]    
         for (let j = 0; j < 7; j++) {        
             days.push(
-            <div className={styles.day} onClick={()=>{console.log(arr[j+(i*7)]);
+            <div className={styles.day} onClick={()=>{displaySchedule(arr[j+(i*7)]);
             }}>
             {arr[j+(i*7)].date}
             </div>
@@ -167,15 +206,17 @@ setCalendar([...displayArr])
 
 
 useEffect(()=>{
-
     displayCalendar(tgtMonth.getMonth(),tgtYear.getFullYear())
+}, [])
 
-}, [Year, Month])
+
+
+
 
 
 
 return (
-    <>
+    <div className={styles.main}>
 
 
             <div className={styles.calendarWrapper}> 
@@ -183,7 +224,7 @@ return (
                     <div className={styles.currentMonth}>
                        
                         <div className={styles.day} >
-                          {months[Month]} 
+                          {months[tgtMonth.getMonth()]} 
                         </div>
                         <div onClick={()=>changeMonth("")}>
                           <ArrowLeft></ArrowLeft>
@@ -196,7 +237,7 @@ return (
                     </div>
                     <div className={styles.currentMonth}>
                         <div className={styles}>
-                          {Year}
+                          {tgtYear.getFullYear()}
                         </div>
                         <div onClick={()=>changeYear("")}>
                           <ArrowLeft></ArrowLeft>
@@ -229,10 +270,20 @@ return (
             </div>
             </div>
 
+
           
+              <div className={styles.scheduleWrapper}>
+                {Schedule.length>0?
+                <div className={styles.scheduleDate}> 
+                    {date}
+                </div> 
+                :
+                ""}
+                
+                    {Schedule}
+              </div>
 
-
-    </>
+    </div>
 )
 
 }
