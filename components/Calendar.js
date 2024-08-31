@@ -147,14 +147,18 @@ function displaySchedule(obj) {
         if( schedule[i].abl ){
           dsp_schedule.push(
           <div className={styles.avaib}>
+            <div className={styles.avaibInner}>
             {schedule[i].hour}
+            </div>
           </div>
         )
         } else {
           dsp_schedule.push(
-            <div className={styles.notAvaib}>
-              {schedule[i].hour}
+          <div className={styles.notAvaib}>
+            <div className={styles.notAvaibInner}>
+            {schedule[i].hour}
             </div>
+          </div>
           )
         }
         
@@ -162,7 +166,8 @@ function displaySchedule(obj) {
       }
       
     } 
-  setdate(dte)
+ 
+  setdate(obj.date + " " + months[obj.month] + " de " + obj.year )
  setSchedule([...dsp_schedule])
 }
 
@@ -207,6 +212,32 @@ setCalendar([...displayArr])
 
 useEffect(()=>{
     displayCalendar(tgtMonth.getMonth(),tgtYear.getFullYear())
+
+
+  //   document.addEventListener("beforeunload", (e)=>{
+  //     return "Do you really want to close?";
+  //   })
+    document.addEventListener("pagehide", (e)=>{
+
+
+      let msg = fetch("http://localhost:3001", {
+        method: "GET",
+        headers: {
+          "Access-Control-Allow-Origin" : "*"
+        }
+      })
+      msg.then((data)=>console.log(data))
+
+      if (document.visibilityState == "visible") {
+        console.log("tab is active")
+      } else {
+        console.log("tab is inactive")
+      }
+     
+    })
+  //   window.onbeforeunload = function () {
+  //     return "Do you really want to close?";
+  // };
 }, [])
 
 
@@ -272,13 +303,18 @@ return (
 
 
           
-              <div className={styles.scheduleWrapper}>
-                {Schedule.length>0?
+              <div className={styles.scheduleWrapper}>  
+                
                 <div className={styles.scheduleDate}> 
                     {date}
                 </div> 
+                {Schedule.length>0?
+                ""              
                 :
-                ""}
+                <div className={styles.noSchedules}>
+                  Lamentamos, mas nao existe horarios disponiveis nesse dia
+                </div>
+                  }
                 
                     {Schedule}
               </div>
