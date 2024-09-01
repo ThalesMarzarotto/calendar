@@ -19,7 +19,13 @@ align-items: center;
 }
 
 .timeSlots {
-    border:1px solid red
+    border:1px solid red;
+    width: 100%;
+}
+
+.times {
+    border:1px solid red;
+    width: 100%;
 }
 
 
