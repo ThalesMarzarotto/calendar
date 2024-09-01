@@ -1,7 +1,28 @@
+
 .main {
-   
-   
+    display:flex;
 }
+
+
+
+.mainScheduler {
+    border:1px solid white;
+    width: 100%;
+    display:flex;
+}
+
+.calendar_main {
+padding-top: 6rem;
+display:flex;
+flex-direction:column;
+align-items: center;
+}
+
+.timeSlots {
+    border:1px solid red
+}
+
+
 
 .calendarWrapper{
     display: flex;
@@ -133,6 +154,8 @@
    align-items: center;
    border-radius: 5px;
    margin-bottom: 30px;
+   width: 250px;
+
    border:1px solid rgb(24, 24, 24);
    background-color: rgb(15, 15, 15);
 

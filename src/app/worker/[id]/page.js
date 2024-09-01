@@ -1,6 +1,6 @@
 'use client'
 import React, { useEffect } from "react";
-import styles from './calendar.module.css'
+import styles from './pages.module.css'
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,7 +8,7 @@ import Link from "next/link";
 
 let availableDates = new Map ()
 
-
+import helena from "../../../../public/helena.jpg"
 
 availableDates.set("4/8/2024", ["13:00-14:00", "14:00", "15:00", "16:00", "17:00"])
 
@@ -288,19 +288,22 @@ return (
     <div className={styles.main}>
 
 
+     <div className={styles.calendar_main}>
+
+
 
             <div className={styles.workerInfo}>
 
                  
                  <div className={styles.workerPhoto}>
                   
-                  <Image src={data} style={{width:"74px", height:"74px", borderRadius:"100%", zIndex:1, position:"relative", filter: "brightness(1.2)"}}
+                  <Image src={helena} style={{width:"74px", height:"74px", borderRadius:"100%", zIndex:1, position:"relative", filter: "brightness(1.2)"}}
                   priority/> 
                  </div>
                         
                   
                   <div className={styles.workerName}>
-   Helena
+                   Helena
                   </div>
                
           
@@ -384,6 +387,18 @@ return (
               </div>
 
     </div>
+
+    <div className={styles.mainScheduler}>
+            <div className={styles.timeSlots}>  
+                1 
+            </div>
+            <div className={styles.times}>
+                1
+            </div>
+    </div>
+
+    </div>
+  
 )
 
 }
